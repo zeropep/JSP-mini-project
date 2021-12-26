@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PostMapper">
+
+	<insert id="reg" parameterType="pvo">
+		insert into post (writer, files,
+		content)
+		values(#{writer}, #{files}, #{content})
+	</insert>
+
+	<select id="list" parameterType="map" resultType="pvo">
+		select p.post_id, p.writer, count(l.email) like_cnt,
+		p.content,p.files, p.mod_at, p.read_cnt,p.reg_at, u.avatar
+		from post p left join `like` l on p.post_id = l.post_id left join user u
+		on p.writer = u.email
+		where p.content like #{query}
+		GROUP BY p.post_id
+		order by p.reg_at desc
+		limit #{page}, 5
+	</select>
+	
+	<select id="profileList" resultType="pvo">
+		select post_id, writer, like_cnt, content, mod_at, read_cnt, files
+		from post where writer = #{writer} order by post_id desc;
+	</select>
+	
+
+	<select id="cnt" parameterType="string" resultType="int">
+		select count(post_id) from post where content like #{query}
+	</select>
+
+	<select id="one" parameterType="long" resultType="pvo">
+		select
+		p.post_id, p.writer, p.reg_at, p.mod_at, p.read_cnt, p.files, p.content,
+		count(l.email) as like_cnt, u.avatar from post p 
+		left join `like` l on p.post_id = l.post_id 
+		left join user u on p.writer = u.email 
+		where p.post_id = #{postId} group by p.post_id
+	</select>
+
+	<select id="liked" parameterType="map" resultType="pvo">
+		select p.post_id, p.writer, count(l.email) like_cnt,
+		p.content,p.files, p.mod_at, p.read_cnt,p.reg_at, u.avatar
+		from post p left join `like` l on p.post_id = l.post_id left join user u
+		on p.writer = u.email
+		where p.post_id in
+		<foreach collection="list" item="post" open="(" close=")"
+			separator=",">
+			#{post.postId}
+		</foreach>
+		GROUP BY p.post_id
+		order by p.reg_at desc
+	</select>
+
+
+	<update id="addCnt" parameterType="long">
+		update post set read_cnt =
+		read_cnt + 1 where post_id = #{postId}
+	</update>
+
+	<update id="mod" parameterType="pvo">
+		update post set files = #{files}, content = #{content} , mod_at = now()
+		where post_id = #{postId}
+	</update>
+
+	<delete id="del" parameterType="long">
+		delete from post where post_id = #{postId}
+	</delete>
+	
+	<delete id="delAll" parameterType="String">
+		delete from post where writer = #{writer}
+	</delete>
+
+</mapper>

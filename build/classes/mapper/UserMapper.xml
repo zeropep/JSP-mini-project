@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+	
+	<insert id="reg" parameterType="uvo">
+		insert into user (email, age,
+		name, pwd, is_admin, nick_name, following, follower)
+		values (#{email}, #{age},
+		#{name}, #{pwd}, #{isAdmin}, #{nickName}, "", "")
+	</insert>
+	
+	<select id="manageList"  resultType="uvo">
+		select email, age, name, is_admin, nick_name, avatar, reg_at 
+		from user order by reg_at 
+	</select>
+	
+	<select id="list" resultType="uvo">
+		select name, nick_name, avatar from user
+	</select>
+	
+	<select id="selectListByEmail" parameterType="arraylist" resultType="uvo">
+		select nick_name, avatar from user where email in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+ 		#{item}
+	</foreach>
+
+	</select>
+	
+	<select id="one" parameterType="string" resultType="uvo">
+		select email, age, name, is_admin, nick_name, avatar, reg_at, following, follower
+		from user where email = #{email}
+	</select>
+	
+	<select id="login" parameterType="uvo" resultType="uvo">
+		select email, age, name, is_admin, nick_name, avatar, reg_at
+		from user where email = #{email} and pwd = #{pwd}
+	</select>
+	
+	<select id="kakaoLogin" parameterType="String" resultType="uvo">
+		select email, age, name, pwd, is_admin, nick_name, avatar, reg_at
+		from user where email = #{email}
+	</select>
+	
+	<select id="getFollow" parameterType="string" resultType="map">
+		select email, follower, following
+		from user where email = #{email}
+	</select>
+	
+	<select id="getFollowerCSV" parameterType="string"
+		resultType="string">
+		select follower from user where email = #{email}
+	</select>
+	
+	<select id="getFollowingCSV" parameterType="string"
+		resultType="string">
+		select following from user where email = #{email}
+	</select>
+	
+	<update id="setFollow" parameterType="hashmap">
+		update user set follower =
+		#{follower}, following = #{following} where email = #{email}
+	</update>
+	
+	<update id="mod" parameterType="uvo">
+		update set is_admin = #{isAdmin}, nick_name = #{nickName}, avatar = #{avatar} 
+		where email = #{email}
+	</update>
+	
+	<update id="modPwd" parameterType="uvo">
+		update user set pwd = #{pwd} where email = #{email}
+	</update>
+	
+	<update id="modAvatar" parameterType="uvo">
+		update user set avatar = #{avatar} where email = #{email}
+	</update>
+
+	<delete id="del" parameterType="string">
+		delete from user where email = #{email}
+	</delete>
+	
+	<select id="check" parameterType="String" resultType="uvo">
+		select email from user where email = #{email};
+	</select>
+	
+</mapper>
