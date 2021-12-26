@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<settings>
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+<typeAliases>
+	<typeAlias type="domain.UserVO" alias="uvo"/>
+	<typeAlias type="domain.PostVO" alias="pvo"/>
+	<typeAlias type="domain.CommentVO" alias="cvo"/>
+	<typeAlias type="domain.LikeVO" alias="lvo"/>
+	
+</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <!-- 데이터베이스명 바꾸셔야되요 -->
+        <property name="url" value="jdbc:mysql://localhost:3306/jsp_project"/>
+        <!-- sql 아이디 비밀번호 바꾸셔야되요 -->
+        <property name="username" value="jsp_project"/>
+        <property name="password" value="mysql"/>
+        <!--  -->
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="mapper/UserMapper.xml"/>
+    <mapper resource="mapper/CommentMapper.xml"/>
+    <mapper resource="mapper/PostMapper.xml"/>
+    <mapper resource="mapper/LikeMapper.xml"/>
+  </mappers>
+</configuration>

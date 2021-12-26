@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LikeMapper">
+	
+	<insert id="like" parameterType="lvo">
+		insert into `like`(email, post_id) values(#{email}, ${postId})
+	</insert>
+	
+	<select id="list" parameterType="string" resultType="lvo" >
+		select l.post_id , u.avatar from `like` l left join user u on l.email = u.email
+		 where l.email = #{email}
+	</select>
+	
+	<select id="likedPostId" parameterType="string" resultType="hashmap">
+		select concat(post_id) postId from `like` where email = #{email}
+	</select>
+	
+	<delete id="delAll" parameterType="String">
+		delete from `like` where email = #{email}
+	</delete>
+</mapper>
