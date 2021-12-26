@@ -1,0 +1,166 @@
+body {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  margin: 0px;
+  align-items: center;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* icons */
+.fa {
+  padding: 3px;
+  font-size: 1px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 5px;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+.fa-tumblr {
+  background: #2c4762;
+  color: white;
+}
+
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55acee;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+/*  */
+.close_btn {
+  color: #fff;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.container {
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  width: 85vw;
+  height: 85vh;
+}
+
+.left_container {
+  width: 50%;
+  background-color: #fff;
+  padding: 15px;
+}
+
+.right_container {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: #fff;
+}
+#post_img {
+  border: 1px solid #e9e9e9;
+  padding: 3px;
+}
+
+.cyan {
+	color: #8edcde;
+}
+
+img#post_img{
+	width:100%;
+}
+img.avatar{
+	width:25px;
+	height: 25px;
+	border-radius:12px;
+}
+
+.avatar {
+  border-radius: 12px;
+}
+
+.post_writer_area {
+  height: 3%;
+}
+
+.content_area {
+  display: flex;
+  flex-grow: 1;
+  font-size: 1.5em;
+  flex-direction: column;
+}
+.content_text {
+  flex-grow: 1;
+}
+
+.cmt_area {
+  height: 30%;
+  overflow: scroll;
+}
+
+.cmt_area > span {
+  font-size: 1.5em;
+}
+
+.cmt {
+  display: flex;
+  padding: 5px;
+}
+
+.writer {
+  display: flex;
+}
+.cmt_text {
+  flex-grow: 1;
+}
+
+.scroll_div {
+  overflow: hidden;
+}
+
+.cmt_writer_area,
+.post_writer_area {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+}
+.cmt_input {
+  position: relative;
+  display: flex;
+  bottom: 0;
+}
+
+input#input_content {
+  flex-grow: 1;
+  height: 25px;
+}
+
+button#submitBtn {
+  border: none;
+  background-color: #fff;
+  color: #7db2f4;
+}
+
+.htag {
+  font-size: 0.8em;
+}
